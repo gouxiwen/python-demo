@@ -83,8 +83,19 @@ powershell
 (Invoke-WebRequest -Uri https://install.python-poetry.org -UseBasicParsing).Content | py -
 
 配置环境变量：
+我的电脑-系统设置-高级系统设置-环境变量-系统变量-Path-添加python安装目录下的Scripts文件夹
 
-使用：
+查看配置信息：
+poetry config --list
+cache-dir = "C:\\Users\\<your name>\\AppData\\Local\\pypoetry\\Cache"
+可以看到poetry安装后默认的缓存路径个虚拟环境路径在:
+C:\Users\<your name>\AppData\Local\pypoetry\Cache 为了不占用 C 盘空间，修改默认的虚拟环境的目录。
+poetry config cache-dir F:\\Users\\<your name>\\AppData\\Local\\pypoetry\\Cache
+
+使用新的虚拟环境：
+poetry env use F:\Users\<your name>\AppData\Local\pypoetry\Cache\virtualenvs\python-demo-vPYSjIaz-py3.11\Scripts\python.exe
+vscode如果激活终端失败，可以尝试清理缓存：
+首先按 Ctrl+Shift+P 调出快捷命令并输入“>Python: Clear Cache and reload window”
 
 可用命令:
   - about              显示有关 Poetry 的信息。
@@ -135,3 +146,13 @@ source
   - source add         为项目添加源配置。
   - source remove      删除项目配置的源。
   - source show        显示为项目配置的源信息。
+
+
+  
+添加`pyproject.toml`中的包
+
+```bash
+poetry shell                                               # activate current environment
+poetry add $(cat requirements.txt)           # install dependencies of production and update pyproject.toml
+poetry add $(cat requirements-dev.txt) --group dev    # install dependencies of development and update pyproject.toml
+```

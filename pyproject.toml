@@ -1,0 +1,25 @@
+[tool.poetry]
+name = "python-demo"
+version = "0.1.0"
+description = ""
+authors = ["gouxiwen <gouxiwen@huazhicloud.cn>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "3.11.8"
+certifi = "2024.7.4"
+charset-normalizer = "3.3.2"
+idna = "3.7"
+requests = "2.32.3"
+urllib3 = "2.2.2"
+keras = "2.14.0"
+matplotlib = ">=3.0.2"
+numpy = ">=1.14.6"
+torch = "^2.5.0"
+torchvision = "^0.20.0"
+pandas = "^2.2.3"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
