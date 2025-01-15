@@ -18,6 +18,8 @@ numpy = ">=1.14.6"
 torch = "^2.5.0"
 torchvision = "^0.20.0"
 pandas = "^2.2.3"
+opencv-python = "^4.10.0.84"
+tensorboard = "^2.18.0"
 
 
 [build-system]

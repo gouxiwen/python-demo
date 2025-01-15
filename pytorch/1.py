@@ -102,7 +102,8 @@ def main():
     model = TinnyCNN(2)
 
     # step 3/4 : 优化模块
-    loss_f = nn.CrossEntropyLoss()
+    loss_f = nn.CrossEntropyLoss() #交叉熵损失，先将输入经过softmax激活函数之后，再计算交叉熵损失
+    # loss_f = nn.L1Loss()
     optimizer = optim.SGD(model.parameters(), lr=0.1, momentum=0.9, weight_decay=5e-4)
     scheduler = optim.lr_scheduler.StepLR(optimizer, gamma=0.1, step_size=50)
     # step 4/4 : 迭代模块
@@ -112,12 +113,12 @@ def main():
         for data, labels in train_loader:
             # forward & backward
             outputs = model(data)
-            optimizer.zero_grad()
+            optimizer.zero_grad() # 清空梯度信息，防止梯度信息累积
 
             # loss 计算
             loss = loss_f(outputs, labels)
-            loss.backward()
-            optimizer.step()
+            loss.backward() # 反向传播，可以得到权重（Parameter）的梯度信息(.grad)，权重的梯度信息用于优化器更新权重
+            optimizer.step() # 更新权重
 
             # 计算分类准确率
             _, predicted = torch.max(outputs.data, 1)

@@ -2,6 +2,8 @@
 # 计算图求导
 # ----看教程----
 # 什么是导数？
+# 导数（Derivative），也叫导函数值。又名微商，是微积分中的重要基础概念。
+# 当函数y=f（x）的自变量x在一点x0上产生一个增量Δx时，函数输出值的增量Δy与自变量增量Δx的比值在Δx趋于0时的极限a如果存在，a即为在x0处的导数，记作f’（x0）或df（x0）/dx。
 # ∂y/∂w 读作“y对w的导数”
 # 什么是偏导数？什么是全导数？
 # 什么是高阶偏导数？
@@ -20,7 +22,7 @@ import torch
 
 # # 查看叶子结点
 # print("is_leaf:\n", w.is_leaf, x.is_leaf, a.is_leaf, b.is_leaf, y.is_leaf)
-# # 查看梯度，梯度等于根节点对叶子节点的求导
+# # 查看梯度-【梯度】等于根节点对叶子节点的求导∂root/∂leaf
 # print("gradient:\n", w.grad, x.grad, a.grad, b.grad, y.grad)
 # # tensor([5.]) tensor([2.]) None None None
 # # 查看 grad_fn

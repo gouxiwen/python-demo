@@ -4,26 +4,6 @@
 ### 自定义包
 创建一个目录，新建__init__.py文件，引入需要的函数
 
-### 虚拟环境
-python虚拟环境可以解决不同项目依赖不同版本包的问题，避免不同项目之间的依赖冲突
-pipenv、venv、conda都是虚拟环境工具，Python 从3.3 版本开始，自带了一个虚拟环境模块 venv
-
-创建虚拟环境：
-```
-python -m venv venv
-```
-激活虚拟环境：
-```
-# windows
-venv\Scripts\activate
-# mac
-source venv/bin/activate
-```
-退出虚拟环境：
-```
-deactivate
-```
-
 ### 第三方包
 第三方库资源查看：https://pypi.org/
 
@@ -68,6 +48,28 @@ pipreqs . --encoding=utf8 --force
 注意：在生成requirements.txt文件之前，请确保你的项目目录中已经导入了所有必需的依赖项。
 
 3. 手动创建
+
+
+### 虚拟环境
+python虚拟环境可以解决不同项目依赖不同版本包的问题，避免不同项目之间的依赖冲突
+virtualenv、pipenv、venv、conda都是虚拟环境工具
+Python从3.3版本开始，自带了一个虚拟环境模块 venv
+
+创建虚拟环境：
+```
+python -m venv venv
+```
+激活虚拟环境：
+```
+# windows
+venv\Scripts\activate
+# mac
+source venv/bin/activate
+```
+退出虚拟环境：
+```
+deactivate
+```
 
 ### Python依赖管理的终极武器：Poetry
 必须要求python是3.8版本以上的
