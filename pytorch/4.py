@@ -1,4 +1,4 @@
-# 数据交互模块——Datase
+# 数据交互模块——Dataset
 # 解Dataset与DataLoader的关系。
 # dataset负责与磁盘打交道，将磁盘上的数据读取并预处理好，提供给DataLoader，而DataLoader只需要关心如何组装成批数据，以及如何采样。
 # -*- coding:utf-8 -*-

@@ -1,3 +1,4 @@
+# Module常用函数系列之
 # Module的模块、参数管理
 import torch
 import torch.nn as nn

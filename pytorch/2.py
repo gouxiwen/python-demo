@@ -4,7 +4,7 @@ import numpy as np
 
 # 一、创建张量
 # 1.根据数据创建张量，data(array_like) - tensor的初始数据，可以是list, tuple, numpy array, scalar或其他类型。
-# torch.tensor(data, dtype=None, device=None, requires_grad=False, pin_memory=False
+# torch.tensor(data, dtype=None, device=None, requires_grad=False, pin_memory=False)
 # l = [[1., -1.], [1., -1.]]
 # t_from_list = torch.tensor(l)
 # arr = np.array([[1, 2, 3], [4, 5, 6]])
@@ -96,4 +96,4 @@ import numpy as np
 # print("probability: \n{}, \nbernoulli_tensor:\n{}".format(p, b))
 
 # 二、操作张量
-print(torch.nonzero(torch.tensor([1, 1, 1, 0, 1])))
+# print(torch.nonzero(torch.tensor([1, 1, 1, 0, 1])))

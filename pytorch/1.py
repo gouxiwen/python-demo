@@ -88,11 +88,13 @@ def main():
 
     # step 2/4 : 模型模块
     class TinnyCNN(nn.Module):
+        # 准备网络（准备积木）
         def __init__(self, cls_num=2):
-            super(TinnyCNN, self).__init__()
-            self.convolution_layer = nn.Conv2d(1, 1, kernel_size=(3, 3))
-            self.fc = nn.Linear(36, cls_num)
+            super(TinnyCNN, self).__init__() # 继承父类python3可以省略参数
+            self.convolution_layer = nn.Conv2d(1, 1, kernel_size=(3, 3)) # 卷积层
+            self.fc = nn.Linear(36, cls_num) # 全连接层
 
+        # 构建网络（搭建积木）
         def forward(self, x):
             x = self.convolution_layer(x)
             x = x.view(x.size(0), -1)

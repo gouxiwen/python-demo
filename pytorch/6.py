@@ -1,4 +1,5 @@
 # -*- coding:utf-8 -*-
+# 在深度学习模型里面，有一些网络层需要放在一起使用，如 conv + bn + relu 的组合。Module的容器是将一组操作捆绑在一起的工具
 """
 @file name  : 02_containers.py
 @author     : TingsongYu https://github.com/TingsongYu

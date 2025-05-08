@@ -46,6 +46,9 @@
 # else :
 #    print("这不是你的真心话。")
 
+# 三元运算符
+# value_if_true if condition else value_if_false
+
 # 操作运算符
 # +、-、*、/、%、**、//(加、减、乘、除、取模、次方、整除）
 # < ：小于，用于判断变量是否小于常量

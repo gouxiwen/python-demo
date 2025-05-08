@@ -1,5 +1,6 @@
 
-# 获取模型参数、加载权重参数
+# Module常用函数系列之
+# 获取模型参数、加载权重参数(weight, bias)
 from torchvision import models
 import torch.nn as nn
 
@@ -60,8 +61,9 @@ state_dict_tinnycnn = model.state_dict()
 
 state_dict_tinnycnn["convolution_layer.weight"][0, 0, 0, 0] = 12345. # 假设经过训练，权重参数发现变化
 
-model.load_state_dict(state_dict_tinnycnn)  # 再次查看
+model.load_state_dict(state_dict_tinnycnn)
 
+# 再次查看
 for key, parameter_value in model.state_dict().items():
     if key == "convolution_layer.weight":
         print(key)
