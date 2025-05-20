@@ -1,6 +1,6 @@
 
 # Module常用函数系列之
-# 获取模型参数、加载权重参数(weight, bias)
+# 获取模型参数、加载参数(weight, bias)
 from torchvision import models
 import torch.nn as nn
 

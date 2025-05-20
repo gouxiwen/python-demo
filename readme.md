@@ -90,7 +90,7 @@ powershell
 查看配置信息：
 poetry config --list
 cache-dir = "C:\\Users\\<your name>\\AppData\\Local\\pypoetry\\Cache"
-可以看到poetry安装后默认的缓存路径个虚拟环境路径在:
+可以看到poetry安装后默认的缓存路径是个虚拟环境路径在:
 C:\Users\<your name>\AppData\Local\pypoetry\Cache 为了不占用 C 盘空间，修改默认的虚拟环境的目录。
 poetry config cache-dir F:\\Users\\<your name>\\AppData\\Local\\pypoetry\\Cache
 
@@ -151,10 +151,16 @@ source
 
 
   
-添加`pyproject.toml`中的包
+迁移现有依赖，添加`requirements.txt`中的包
 
 ```bash
 poetry shell                                               # activate current environment
 poetry add $(cat requirements.txt)           # install dependencies of production and update pyproject.toml
 poetry add $(cat requirements-dev.txt) --group dev    # install dependencies of development and update pyproject.toml
+```
+
+如果没有 requirements.txt，但你知道项目需要哪些依赖，可以手动添加，例如：
+
+```bash
+poetry add flask requests
 ```

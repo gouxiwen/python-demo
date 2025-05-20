@@ -65,11 +65,13 @@ writeFilePath = os.path.join(os.path.dirname(__file__),'./data2.txt')
 
 # 二进制文件（图片，音频，视频等）
 import base64
-breadFilePath = os.path.join(os.path.dirname(__file__),'./img.png')
-with open(breadFilePath,'rb') as f:
-    data = f.read()
-    print(base64.b64encode(data))
+# breadFilePath = os.path.join(os.path.dirname(__file__),'./img.png')
+# with open(breadFilePath,'rb') as f:
+#     data = f.read()
+    # print((data)) 
+    # print(base64.b64encode(data))
 
-bwriteFilePath = os.path.join(os.path.dirname(__file__),'./img2.png')
-with open(bwriteFilePath,'wb') as f:
-    f.write(data)
+# bwriteFilePath = os.path.join(os.path.dirname(__file__),'./img2.png')
+# with open(bwriteFilePath,'wb') as f:
+#     f.write(data)
+
