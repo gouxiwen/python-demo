@@ -1,5 +1,5 @@
 # 探索pytorch扩展库torchvision（视觉）和torchtext（文本）
-# TorchVision 是 PyTorch 生态系统中用于计算机视觉任务的扩展库，提供预训练模型、常用数据集和图像处理工具，支持图像分类、像素语义分割、物体检测、实例分割、人物关键点检测、视频分类和光流。 ‌
+# TorchVision 是 PyTorch 生态系统中用于计算机视觉任务的扩展库，提供预训练模型、常用数据集和图像处理工具，支持图像分类、像素语义分割、物体检测、实例分割、人物关键点检测、视频分类和光流（预测运动）。 ‌
 # 核心功能
 # TorchVision 包含四个核心模块：
 # ‌数据集（datasets）‌：支持 CIFAR-10 、 MNIST 、 ImageNet 等常用数据集，可直接加载或下载 ‌
@@ -10,6 +10,7 @@
 # 测试数据地址：https://github.com/pytorch/vision/tree/main/test
 
 import numpy as np
+import torchvision.transforms.functional as F
 import matplotlib.pyplot as plt
 # from torchtext import models
 
@@ -156,7 +157,6 @@ def object_detection_example():
 # Mask R-CNN
 def instance_segmentation_example():
     from torchvision.io.image import decode_image
-    import torchvision.transforms.functional as F
     from torchvision.models.detection import maskrcnn_resnet50_fpn, MaskRCNN_ResNet50_FPN_Weights
     from torchvision.utils import draw_segmentation_masks
 
