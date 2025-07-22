@@ -1,3 +1,4 @@
-*/__pycache__/*
+/**/*/__pycache__/*
 tensorflow/aclImdb_v1.tar.gz
 tensorflow/aclImdb/*
+*.pth
