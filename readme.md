@@ -212,3 +212,13 @@ PyTorch 官网提供了一个针对 M1 芯片的预编译 whl 文件。你可以
 poetry run pip install /path/to/your/downloaded/wheel_file.whl
 或者
 poetry run pip install torch torchvision 可以自动下载并安装适合 M1 芯片的 PyTorch 和 torchvision 包。
+
+虚拟环境位置：
+poetry config --list 查看配置
+poetry config virtualenvs.path 'xxx' 修改虚拟环境位置
+poetry config virtualenvs.in-project true 在项目中创建虚拟环境.venv
+
+
+如果虚拟环境位置不在项目中，vscode等编辑器自动识别虚拟环境原理
+个人猜想：通过项目的路径计算hash，然后在poetry虚拟环境目录中查找对应的虚拟环境，然后激活
+验证猜想：项目改变位置后无法自动激活虚拟环境，需要重新创建

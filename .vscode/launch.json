@@ -12,6 +12,15 @@
             "console": "integratedTerminal",
             "cwd": "${workspaceFolder}/pytorch",
             "justMyCode": false // 同时调试库文件
+        },
+        {
+            "name": "Python 调试程序: pytorch/train-demo/classification/train.py",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${workspaceFolder}/pytorch/train-demo/classification/train.py",
+            "console": "integratedTerminal",
+            "cwd": "${workspaceFolder}/pytorch/train-demo/classification",
+            "justMyCode": true // 仅调试当前文件
         }
     ]
 }

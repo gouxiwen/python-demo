@@ -436,6 +436,7 @@ def set_weight_decay(
 
     def _add_params(module, prefix=""):
         for name, p in module.named_parameters(recurse=False):
+            # note: 排除不需要梯度的参数
             if not p.requires_grad:
                 continue
             is_custom_key = False

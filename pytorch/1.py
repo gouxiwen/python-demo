@@ -106,7 +106,8 @@ def main():
     # step 3/4 : 优化模块
     loss_f = nn.CrossEntropyLoss() #交叉熵损失，先将输入经过softmax激活函数之后，再计算交叉熵损失
     # loss_f = nn.L1Loss()
-    optimizer = optim.SGD(model.parameters(), lr=0.1, momentum=0.9, weight_decay=5e-4)
+    parameters = model.parameters() # 获取模型的参数
+    optimizer = optim.SGD(parameters, lr=0.1, momentum=0.9, weight_decay=5e-4)
     scheduler = optim.lr_scheduler.StepLR(optimizer, gamma=0.1, step_size=50)
     # step 4/4 : 迭代模块
     for epoch in range(100):

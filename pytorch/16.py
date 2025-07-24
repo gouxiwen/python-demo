@@ -49,7 +49,8 @@ def image_classification_example():
     # 残差网络是v0.13版本之前torchvision中内置的最好的模型，不过v0.13版本之后加入了EfficientNet效果更好
 
     # img = decode_image("mini-hymenoptera_data/val/bees/54736755_c057723f64.jpg")
-    img = decode_image("images/banana.jpg")
+    # img = decode_image("images/banana.jpg")
+    img = decode_image("train-demo/classification/datasets01/test/84.jpg")
 
     # print(img.shape) #torch.Size([3, 396, 500]) channel, height, width
     # Step 1: Initialize model with the best available weights
@@ -294,8 +295,8 @@ def video_classification_example():
     category_name = weights.meta["categories"][label]
     print(f"{category_name}: {100 * score}%")
 
-# image_classification_example()
+image_classification_example()
 # semantic_segmentation_example()
-object_detection_example()
+# object_detection_example()
 # keypoint_detection_example()
 # video_classification_example()
