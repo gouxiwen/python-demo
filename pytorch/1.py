@@ -116,6 +116,7 @@ def main():
         for data, labels in train_loader:
             # forward & backward
             outputs = model(data)
+            # tensor([[0.0893, 0.0221], [0.0920, 0.0313]])，预测的一个batch的输出，包含每个样本的预测结果
             optimizer.zero_grad() # 清空梯度信息，防止梯度信息累积
 
             # loss 计算
@@ -125,6 +126,7 @@ def main():
 
             # 计算分类准确率
             _, predicted = torch.max(outputs.data, 1)
+            # predicted是最大预测值对应的indices，即预测的类别，是一个batch维度的张量，如：tensor([0, 0])，_是对应的预测值tensor([0.0893, 0.0920])
             correct_num = (predicted == labels).sum()
             acc = correct_num / labels.shape[0]
             print("Epoch:{} Train Loss:{:.2f} Acc:{:.0%}".format(epoch, loss, acc))
@@ -137,12 +139,12 @@ def main():
             outputs = model(data)
 
             # loss 计算
-            loss = loss_f(outputs, labels)
+            loss = loss_f(outputs, label)
 
             # 计算分类准确率
             _, predicted = torch.max(outputs.data, 1)
-            correct_num = (predicted == labels).sum()
-            acc_valid = correct_num / labels.shape[0]
+            correct_num = (predicted == label).sum()
+            acc_valid = correct_num / label.shape[0]
             print("Epoch:{} Valid Loss:{:.2f} Acc:{:.0%}".format(epoch, loss, acc_valid))
 
         # 添加停止条件

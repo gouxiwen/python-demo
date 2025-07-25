@@ -9,6 +9,7 @@
 
 # 测试数据地址：https://github.com/pytorch/vision/tree/main/test
 
+import torch
 import numpy as np
 import torchvision.transforms.functional as F
 import matplotlib.pyplot as plt
@@ -66,7 +67,7 @@ def image_classification_example():
     batch = preprocess(img).unsqueeze(0)
 
     # Step 4: Use the model and print the predicted category
-    prediction = model(batch).squeeze(0).softmax(0)
+    prediction: torch.Tensor = model(batch).squeeze(0).softmax(0)
     class_id = prediction.argmax().item()
     score = prediction[class_id].item()
     category_name = weights.meta["categories"][class_id]

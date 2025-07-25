@@ -97,3 +97,27 @@ import numpy as np
 
 # 二、操作张量
 # print(torch.nonzero(torch.tensor([1, 1, 1, 0, 1])))
+
+# 处理预测结果常见方式：
+# 假设有6个分类，t是预测结果
+# batch=1
+t1 = torch.tensor([[1., -2., -7., 4., 5., -8.]])
+# 对预测值进行softmax操作，得到每个类别的概率分布
+predicted1 = t1.squeeze(0).softmax(0)
+print('predicted1=', predicted1) # tensor([1.3204e-02, 6.5739e-04, 4.4295e-06, 2.6521e-01, 7.2092e-01, 1.6295e-06])
+indices = predicted1.argmax().item()  
+print('indices=', indices) # 获取最大值的索引4
+print('score=', predicted1[indices].item()) # 获取最大值7.2092e-01
+
+# batch>1
+t2=torch.tensor([[1., -2., -7., 4., 5., -8.], [-1., -3., 6., 1.,-4., -9.]])
+values, indices = torch.max(t2.data, 1) 
+print('values=', values) # tensor([5., 6.])
+print('indices=', indices) # tensor([4, 2])
+# 假设从loader获取的真实labels为tensor([4, 3])
+labels = torch.tensor([4, 3])
+correct_num = (indices == labels).sum()  # 计算预测正确的数量
+print('correct_num=', correct_num)  # tensor(1)
+acc = correct_num / labels.shape[0]  # 计算准确率tensor(1)/2
+print('acc=', acc)  # tensor(0.5)
+print(f'{acc=:.0%}')  # acc=50%
