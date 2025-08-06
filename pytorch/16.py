@@ -1,4 +1,4 @@
-# 探索pytorch扩展库torchvision（视觉）和torchtext（文本）
+# 探索pytorch扩展库torchvision（视觉）和torchtext（文本，已停止维护）
 # TorchVision 是 PyTorch 生态系统中用于计算机视觉任务的扩展库，提供预训练模型、常用数据集和图像处理工具，支持图像分类、像素语义分割、物体检测、实例分割、人物关键点检测、视频分类和光流（预测运动）。 ‌
 # 核心功能
 # TorchVision 包含四个核心模块：
@@ -176,7 +176,7 @@ def instance_segmentation_example():
 
     proba_threshold = 0.5 
     score_threshold = .75
-    # 根据预测的分数和概率阈值觉得是否绘制mask
+    # 根据预测的分数和概率阈值决定是否绘制mask
     boolean_masks = [
         out['masks'][out['scores'] > score_threshold] > proba_threshold
         for out in output
