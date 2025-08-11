@@ -9,3 +9,5 @@ https://tingsongyu.github.io/PyTorch-Tutorial-2nd/
 0.22版本训练脚本地址：https://github.com/pytorch/vision/blob/release/0.22/references/classification/README.md
 
 ### train-demo是预训练模型的训练脚本
+
+### yolo是使用yolo11进行预测的demo

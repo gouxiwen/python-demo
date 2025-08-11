@@ -238,7 +238,7 @@ def keypoint_detection_example():
     ]
     # res = draw_keypoints(person_int, keypoints, connectivity=connect_skeleton, colors="blue", radius=4, width=3)
     # show(res)
-    # 加入有一些关键点没有预测出来，如下
+    # 假如有一些关键点没有预测出来，如下
     keypoints = torch.tensor(
         [[[208.0176, 214.2409, 1.0000],
           [000.0000, 000.0000, 0.0000],

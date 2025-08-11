@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>404 Not Found</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #74ABE2, #5563DE);
+            color: #fff;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 120px;
+            font-weight: bold;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        p {
+            font-size: 20px;
+            margin: 10px 0 30px;
+        }
+
+        a {
+            text-decoration: none;
+            background: #fff;
+            color: #5563DE;
+            padding: 12px 25px;
+            border-radius: 25px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        a:hover {
+            background: #f0f0f0;
+            transform: translateY(-3px);
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-15px);
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>404</h1>
+    <p>Oops! The page you are looking for cannot be found.</p>
+    <a href="/">Go Home</a>
+</body>
+</html>
