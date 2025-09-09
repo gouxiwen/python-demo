@@ -15,6 +15,7 @@ class Animal(object):
     def __init__(self, name):
         # 在子类中显式调用父类的__init__()方法，确保父类属性正确初始化。若不写，子类仍会继承父类非私有方法，但父类的构造逻辑不会执行‌
         # super().__init__()  # 执行父类构造逻辑
+        # python2中调用父类更为复杂，需要使用super(子类, self).__init__()，python3中可以直接使用super().__init__()
         self.__name = name
     def greet(self):
         print ('Hello, I am %s.' % self.__name)

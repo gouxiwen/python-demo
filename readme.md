@@ -222,3 +222,23 @@ poetry config virtualenvs.in-project true 在项目中创建虚拟环境.venv
 如果虚拟环境位置不在项目中，vscode等编辑器自动识别虚拟环境原理
 个人猜想：通过项目的路径计算hash，然后在poetry虚拟环境目录中查找对应的虚拟环境，然后激活
 验证猜想：项目改变位置后无法自动激活虚拟环境，需要重新创建
+
+
+### Python依赖管理的终极武器是Poetry？不，新工具又出现了，它就是uv
+
+uv 是一个用 Rust 编写的现代 Python 打包工具。它的核心目标是极速地替代 pip、pip-tools 和 venv 等工具的功能
+
+uv 能替代哪些工具？
+uv 目前主要针对以下工具的功能进行替代：
+
+venv / virtualenv: 用于创建和管理独立的 Python 虚拟环境。
+
+pip install / pip uninstall / pip list: 用于安装、卸载和查看包。
+
+pip-compile / pip-sync (来自 pip-tools): 用于从抽象的依赖列表 (requirements.in) 生成精确锁定的依赖列表 (requirements.txt)，并根据锁定文件同步环境。
+
+值得注意的是，uv 不是一个完整的项目管理器，它目前不处理发布包、运行脚本、管理项目元数据（如 pyproject.toml 中的 [project] 部分）等功能。这些是 Poetry 或 PDM 等工具的长处。uv 更专注于底层的依赖和环境操作，并且可以作为其他高级工具（比如 Rye 就内置使用了 uv）的后端引擎。
+
+uv兼容 pip 的常用命令 (uv pip)
+
+参考：https://cloud.tencent.com/developer/article/2522991

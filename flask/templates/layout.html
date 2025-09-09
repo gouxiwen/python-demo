@@ -1,0 +1,37 @@
+<!doctype html>
+<title>My Application</title>
+{% with messages = get_flashed_messages(with_categories=true) %}
+  {% if messages %}
+    <ul class=flashes>
+    {% for category, message in messages %}
+      <li class="{{ category }}">{{ message }}</li>
+    {% endfor %}
+    </ul>
+  {% endif %}
+{% endwith %}
+{% block body %}{% endblock %}
+
+<style>
+  .flashes {
+    width: 25%;
+    margin: 0 auto;
+    padding: 5px;
+    background: #f8f8f8;
+  }
+  .flashes li {
+    list-style: none;
+    text-align: center;
+  }
+  .error {
+    color: red;
+  }
+  .warning {
+    color: orange;
+  }
+  .success {
+    color: green;
+  }
+  .info {
+    color: blue;
+  }
+</style>

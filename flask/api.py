@@ -4,11 +4,11 @@ from flask import Flask, url_for, send_from_directory
 app = Flask(__name__)
 @app.route("/me")
 def me_api():
-    user = get_current_user()
+    user = DotDict(get_current_user())
     return {
-        "username": user['username'],
-        "theme": user['theme'],
-        "image": url_for("user_image", filename=user['image']),
+        "username": user.username,
+        "theme": user.theme,
+        "image": url_for("user_image", filename=user.image),
     }
 
 @app.route("/users")
@@ -29,3 +29,23 @@ def get_all_users():
 @app.route("/user/<filename>")
 def user_image(filename):
     return send_from_directory("static", f"{filename}")
+
+class DotDict(dict):
+    """支持嵌套字典的点号访问"""
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        for key, value in self.items():
+            if isinstance(value, dict):
+                self[key] = DotDict(value)
+    
+    def __getattr__(self, name):
+        try:
+            value = self[name]
+            if isinstance(value, dict) and not isinstance(value, DotDict):
+                return DotDict(value)
+            return value
+        except KeyError:
+            raise AttributeError(f"'{self.__class__.__name__}' object has no attribute '{name}'")
+    
+    __setattr__ = dict.__setitem__
+    __delattr__ = dict.__delitem__

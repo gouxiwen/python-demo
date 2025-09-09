@@ -17,7 +17,7 @@ def login():
             error = 'Invalid username/password'
     # the code below is executed if the request method
     # was GET or the credentials were invalid
-    return render_template('login.html', error=error)
+    return render_template('login_simple.html', error=error)
 def valid_login(username, password):
     return username=='admin' and password=='password'
 

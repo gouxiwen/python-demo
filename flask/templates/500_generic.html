@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title></title>
+  </head>
+  <body>
+    {% if error %}
+    <div class="error-container">
+        <div class="error-card">
+            <h2>500</h2>
+            <p class="error-message">{{error}}</p>
+        </div>
+    </div>
+    {% endif %}
+  </body>
+</html>
+<style>
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background: linear-gradient(45deg, #00b4d8, #0077b6);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    font-family: Arial, sans-serif;
+}
+
+.error-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+.error-card {
+    background: white;
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    width: 350px;
+    text-align: center;
+    color: #ff4b2b;
+}
+
+h2 {
+    margin-bottom: 20px;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.error-message {
+    margin-bottom: 20px;
+    font-size: 16px;
+    color: #333;
+}
+
+</style>
