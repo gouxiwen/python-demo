@@ -1,0 +1,27 @@
+# 基于 pyproject.toml 生成的依赖项
+name: python-demo
+channels:
+  - https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/main/
+  - https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/free/
+  - https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud/conda-forge/
+  - https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud/msys2/
+  - defaults
+  - conda-forge
+dependencies:
+  # - certifi=2024.7.4
+  # - charset-normalizer=3.3.2
+  # - idna=3.7
+  # - requests=2.32.3
+  # - urllib3=2.2.2
+  # - keras=2.14.0
+  # - matplotlib>=3.0.2
+  # - numpy>=1.14.6
+  # - torch=2.5.0
+  # - torchvision=0.22
+  # - pandas=2.2.3
+  # - opencv-python=4.10.0.84
+  # - tensorboard=2.18.0
+  # - scikit-learn=1.7.0
+  # - av=15.0.0
+  # - ultralytics=8.3.174
+  - flask=3.1.1

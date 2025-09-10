@@ -242,3 +242,82 @@ pip-compile / pip-sync (来自 pip-tools): 用于从抽象的依赖列表 (requi
 uv兼容 pip 的常用命令 (uv pip)
 
 参考：https://cloud.tencent.com/developer/article/2522991
+
+
+## 开发容器
+本项目学习使用devcontainer
+
+Dev Containers 是一种通过容器化技术创建统一开发环境的解决方案，主要用于提升团队协作效率和开发环境一致性。
+
+容器基础镜像可以选择官方预设的镜像，本项目使用python3+Miniconda
+
+Miniconda是Anaconda 的简化版本，仅包含 conda 包管理器和 Python 的最小安装包，适合需要轻量化管理的用户
+
+由于基础镜像包含conda，因此容器里的包使用conda进行安装，而不是容器外使用的poetry
+
+因此需要创建一个environment.yml文件，用于定义conda环境和依赖，将pyproject.toml中的依赖项添加到environment.yml中后进入容器
+
+查看虚拟环境列表
+
+conda env list
+
+查看所有安装包
+
+coond list
+
+创建虚拟环境
+
+conda create -n my-conda-env python=x.x
+
+基于environment.yml 创建虚拟环境
+
+conda env create -f environment.yml 
+
+激活虚拟环境
+
+conda activate your_env_name
+
+对虚拟环境中安装额外的包
+
+conda install -n your_env_name [package]
+
+关闭虚拟环境(即从当前环境退出返回使用PATH环境中的默认python版本)
+
+deactivate env_name  
+或者 
+activate root 切回root环境
+
+Linux下：source deactivate
+
+删除虚拟环境
+
+conda remove -n your_env_name --all
+
+删除环境钟的某个包
+
+conda remove --name $your_env_name $package_name 
+
+设置国内镜像
+
+conda config --add channels https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/free/
+
+设置搜索时显示通道地址
+
+conda config --set show_channel_urls yes
+
+恢复默认镜像
+
+conda config --remove-key channels
+
+
+遇到的问题：
+
+迁移过来的依赖版本可能会有很多无法找到对应的版本导致创建虚拟环境失败
+
+如
+conda通常无法安装opencv-python
+
+解决方法是
+
+1. 使用openvc代替，但是功能略有差异
+2. 注释掉无法安装的包后先创建虚拟环境，进入虚拟环境后用pip安装
