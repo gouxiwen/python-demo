@@ -257,6 +257,8 @@ Miniconda是Anaconda 的简化版本，仅包含 conda 包管理器和 Python �
 
 因此需要创建一个environment.yml文件，用于定义conda环境和依赖，将pyproject.toml中的依赖项添加到environment.yml中后进入容器
 
+### conda
+
 查看虚拟环境列表
 
 conda env list
@@ -281,6 +283,10 @@ conda activate your_env_name
 
 conda install -n your_env_name [package]
 
+指定通道安装包
+
+conda install -c conda-forge [package]
+
 关闭虚拟环境(即从当前环境退出返回使用PATH环境中的默认python版本)
 
 deactivate env_name  
@@ -293,7 +299,7 @@ Linux下：source deactivate
 
 conda remove -n your_env_name --all
 
-删除环境钟的某个包
+删除环境中的某个包
 
 conda remove --name $your_env_name $package_name 
 
@@ -309,10 +315,21 @@ conda config --set show_channel_urls yes
 
 conda config --remove-key channels
 
+导出当前环境到一个新的或现有的environment.yml文件
 
-遇到的问题：
+conda env export --from-history > environment.yml
 
-迁移过来的依赖版本可能会有很多无法找到对应的版本导致创建虚拟环境失败
+这个命令只会包含那些在历史中被安装或更新的包，即直接使用conda install安装的包，这对于保持文件较小和精确很有帮助
+
+conda env export  > environment.yml
+
+这个命令会把所有依赖加进去包括pip安装的
+
+
+
+### 遇到的问题：
+
+迁移过来的依赖版本可能会有很多无法找在conda中到对应的版本导致创建虚拟环境失败
 
 如
 conda通常无法安装opencv-python
@@ -321,3 +338,10 @@ conda通常无法安装opencv-python
 
 1. 使用openvc代替，但是功能略有差异
 2. 注释掉无法安装的包后先创建虚拟环境，进入虚拟环境后用pip安装
+3. 删除environment.yml 中安装失败的依赖，进入虚拟环境安装成功后更新environment.yml
+
+用conda安装包会自动安装所依赖的包，但有些包需要根据系统选择不同的安装就需要单独安装，如yolo11的ultralytics包依赖pytorch，pytorch需要根据官网的教程单独安装
+
+在容器中开发GUI无法直接使用，需要通过宿主机显示
+
+参考：https://zhuanlan.zhihu.com/p/1922035025483904423
