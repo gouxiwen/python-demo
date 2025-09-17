@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+
+{% block header %}
+  <h1>{% block title %}查看 "{{ post['title'] }}"{% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+  <div class="title">{{ post['title'] }}</div>
+  <div class="body">{{ post['body'] }}</div>
+{% endblock %}
