@@ -1,5 +1,10 @@
 ## 这是官方教程的完成实例，一个博客系统。
 
+### 初始化数据库
+```bash
+flask --app flaskr init-db
+```
+
 ### 开发启动
 ```bash
 flask --app flaskr run --debug

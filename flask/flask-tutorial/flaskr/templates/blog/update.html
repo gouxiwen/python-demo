@@ -11,10 +11,28 @@
       value="{{ request.form['title'] or post['title'] }}" required>
     <label for="body">内容</label>
     <textarea name="body" id="body">{{ request.form['body'] or post['body'] }}</textarea>
-    <input type="submit" value="保存">
+    <div class="update-button">
+      <input class="button" type="submit" value="保存">
+      <input class="button danger" type="button" value="删除" onclick="deletePost(`{{ post['id'] }}`)">
+    </div>
   </form>
-  <hr>
-  <form action="{{ url_for('blog.delete', id=post['id']) }}" method="post">
+  <!-- <form action="{{ url_for('blog.delete', id=post['id']) }}" method="post">
     <input class="danger" type="submit" value="删除" onclick="return confirm('确定要删除吗？');">
-  </form>
+  </form> -->
+  <script>
+    function deletePost(id) {
+      if (confirm('确定要删除吗？')) {
+        fetch(`/${id}/delete`, { method: 'POST' }).then(() => {
+          window.location.href = '/'
+        })
+      }
+    }
+  </script>
+  <style>
+    .update-button {
+      display: flex;
+      justify-content: flex-end;
+      gap: 0.5rem;
+    }
+  </style>
 {% endblock %}

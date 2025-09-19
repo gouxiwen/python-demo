@@ -1,10 +1,110 @@
 {% extends 'base.html' %}
 
-{% block header %}
-  <h1>{% block title %}查看 "{{ post['title'] }}"{% endblock %}</h1>
-{% endblock %}
-
 {% block content %}
-  <div class="title">{{ post['title'] }}</div>
-  <div class="body">{{ post['body'] }}</div>
+<div class="title">{{ post['title'] }}</div>
+<div class="body">{{ post['body'] }}</div>
+<div class="interaction">
+  <div class="likes">👍{{ likes }} </div>
+  {% if g.user %}
+  <div class="my-interaction">
+    {% if post_liked_by_user == 0 %}
+    <a class="action" href="{{ url_for('blog.like', id=post['id'], like='True') }}" title="赞">赞</a>
+    {% else %}
+    <a class="action" href="{{ url_for('blog.like', id=post['id'], like='False') }}" title="取消赞">取消赞</a>
+    {% endif %}
+  </div>
+  {% endif %}
+</div>
+<div class="comments">
+  <div class="title">评论</div>
+  <div class="comment-form">
+    <form method="POST" action="{{ url_for('blog.add_comment', id=post['id']) }}">
+      <input name="body" placeholder="请输入评论内容"></input>
+      <input class="button" type="submit" value="提交">
+    </form>
+  </div>
+  {% for comment in comments %}
+  <div class="comment">
+    <div class="comment-user">{{ comment['username'] }} </div>
+    <div class="comment-body">{{ comment['body'] }}</div>
+    <div class="comment-footer">
+      <div class="comment-time">{{ comment['created'].strftime('%Y-%m-%d %H:%M') }}</div>
+      <div class="comment-delete" onclick="deleteComment( `{{ comment['id'] }}`)">删除</div>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+</div>
+<script>
+     function deleteComment(commentId) {
+      if (confirm('确定要删除吗？')) {
+        fetch(`/${commentId}/delete_comment`, { method: 'POST' })
+          .then(async (response) => {
+            if (response.ok) {
+              location.reload();
+              // console.log(await response.json());
+            } else {
+              alert('删除失败');
+            }
+          });
+      }
+    };
+</script>
+<style>
+  .body {
+    white-space: pre-line;
+    background: #f7f7f7;
+    padding: 5px;
+    border-radius: 8px;
+  }
+
+  .interaction {
+    margin-top: 10px;
+    display: flex;
+    justify-content: space-between;
+    font-size: 14px;
+  }
+
+  .likes {
+    color: #1772f6;
+  }
+
+  .my-interaction {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+
+  .comments {
+    margin-top: 15px;
+  }
+
+  .comments .comment-user {
+    margin-top: 10px;
+    font-weight: bold;
+  }
+  .comments .comment-body {
+    font-size: 14px;
+    margin: 5px 0;
+  }
+  .comments .comment-footer {
+    font-size: 12px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .comments .comment-footer .comment-time {
+    font-size: 12px;
+    color: slategray;
+    font-style: italic;
+  }
+  .comments .comment-footer .comment-delete {
+    color: red;
+    opacity: 0;
+    cursor: pointer;
+  }
+  .comments .comment-footer:hover .comment-delete {
+    opacity: 1;
+  }
+</style>
 {% endblock %}

@@ -1,29 +1,40 @@
 {% extends 'base.html' %}
-
 {% block header %}
-  <h1>{% block title %}文章列表{% endblock %}</h1>
+<div class="search flex-center">
+  <input class="search-input" type="text" placeholder="搜索文章..." value="{{ query }}" onkeypress="if(event.key==='Enter'){location.href=`/?query=${document.querySelector('.search-input').value}`}">
+</div>
+<div class="flex-center flex-between">
+  <h1 class="h1">{% block title %}文章列表{% endblock %}</h1>
   {% if g.user %}
-    <a class="action" href="{{ url_for('blog.create') }}">写文章</a>
+  <a class="action" href="{{ url_for('blog.create') }}">写文章</a>
   {% endif %}
+</div>
 {% endblock %}
 
 {% block content %}
-  {% for post in posts %}
-    <article class="post">
-      <header>
-        <div>
-          <h1>{{ post['title'] }}</h1>
-          <div class="about">作者 {{ post['username'] }} 发布时间 {{ post['created'].strftime('%Y-%m-%d') }}</div>
-        </div>
-        <a class="action" href="{{ url_for('blog.view', id=post['id']) }}">查看</a>
-        {% if g.user['id'] == post['author_id'] %}
-          <a class="action" href="{{ url_for('blog.update', id=post['id']) }}">编辑</a>
-          {% endif %}
-      </header>
-      <p class="ellipsis">{{ post['body'] }}</p>
-    </article>
-    {% if not loop.last %}
-      <hr>
+{% for post in posts %}
+<article class="post">
+  <header>
+    <div>
+      <h1 class="title" onclick="location.href=`{{ url_for('blog.view', id=post['id']) }}`">{{ post['title'] }}</h1>
+      <div class="about">{{ post['username'] }} 发布于 {{ post['created'].strftime('%Y-%m-%d %H:%M:%S') }}</div>
+    </div>
+    {% if g.user['id'] == post['author_id'] %}
+    <a class="action" href="{{ url_for('blog.update', id=post['id']) }}">编辑</a>
     {% endif %}
-  {% endfor %}
+  </header>
+  <p class="ellipsis">{{ post['body'] }}</p>
+</article>
+{% if not loop.last %}
+{% endif %}
+{% endfor %}
+<style>
+  .search {
+    gap: 0.5rem;
+    margin-top: 1rem;
+  }
+  .search .search-input {
+    flex-grow: 1;
+  }
+</style>
 {% endblock %}
