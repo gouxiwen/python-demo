@@ -2,7 +2,13 @@
 
 {% block content %}
 <div class="title">{{ post['title'] }}</div>
-<div class="body">{{ post['body'] }}</div>
+<!-- 标签展示区 -->
+<div class="tags-list">
+  {% for tag in tags %}
+  <span class="tag-item">{{ tag['name'] }}</span>
+  {% endfor %}
+</div>
+<div class="body-markdown" id="post-content">{{ post['body'] }}</div>
 <div class="interaction">
   <div class="likes">👍{{ likes }} </div>
   {% if g.user %}
@@ -35,27 +41,128 @@
   {% endfor %}
 </div>
 </div>
+
 <script>
-     function deleteComment(commentId) {
-      if (confirm('确定要删除吗？')) {
-        fetch(`/${commentId}/delete_comment`, { method: 'POST' })
-          .then(async (response) => {
-            if (response.ok) {
-              location.reload();
-              // console.log(await response.json());
-            } else {
-              alert('删除失败');
-            }
-          });
+  // 配置marked选项
+  marked.setOptions({
+    highlight: function(code, lang) {
+      if (lang && hljs.getLanguage(lang)) {
+        try {
+          return hljs.highlight(code, { language: lang }).value;
+        } catch (err) {}
       }
-    };
+      return hljs.highlightAuto(code).value;
+    },
+    breaks: true,
+    gfm: true
+  });
+
+  // 将Markdown内容转换为HTML并显示
+  document.getElementById('post-content').innerHTML = marked.parse(document.getElementById('post-content').textContent);
+
+  // 为所有代码块添加复制功能
+  document.querySelectorAll('pre').forEach(function(block) {
+    const button = document.createElement('button');
+    button.className = 'copy-button';
+    button.textContent = '复制代码';
+    button.addEventListener('click', function() {
+      navigator.clipboard.writeText(block.querySelector('code').innerText).then(function() {
+        button.textContent = '已复制!';
+        setTimeout(function() {
+          button.textContent = '复制代码';
+        }, 2000);
+      });
+    });
+    block.appendChild(button);
+  });
+
+  // 为评论中的Markdown内容也进行渲染
+  document.querySelectorAll('.comment-body').forEach(function(element) {
+    element.innerHTML = marked.parse(element.textContent);
+  });
 </script>
+
 <style>
-  .body {
-    white-space: pre-line;
+  .body-markdown {
+    margin-top: 10px;
     background: #f7f7f7;
-    padding: 5px;
+    padding: 15px;
     border-radius: 8px;
+    line-height: 1.6;
+  }
+
+  .body-markdown h1, .body-markdown h2, .body-markdown h3, 
+  .body-markdown h4, .body-markdown h5, .body-markdown h6 {
+    margin-top: 24px;
+    margin-bottom: 16px;
+    font-weight: 600;
+    line-height: 1.25;
+  }
+
+  .body-markdown h1 { font-size: 2em; border-bottom: 1px solid #eaecef; padding-bottom: 0.3em; }
+  .body-markdown h2 { font-size: 1.5em; border-bottom: 1px solid #eaecef; padding-bottom: 0.3em; }
+  .body-markdown h3 { font-size: 1.25em; }
+  .body-markdown h4 { font-size: 1em; }
+  .body-markdown h5 { font-size: 0.875em; }
+  .body-markdown h6 { font-size: 0.85em; color: #6a737d; }
+
+  .body-markdown p {
+    margin-top: 0;
+    margin-bottom: 16px;
+  }
+
+  .body-markdown ul, .body-markdown ol {
+    padding-left: 2em;
+    margin-bottom: 16px;
+  }
+
+  .body-markdown blockquote {
+    padding: 0 1em;
+    color: #6a737d;
+    border-left: 0.25em solid #dfe2e5;
+    margin-bottom: 16px;
+  }
+
+  .body-markdown code {
+    padding: 0.2em 0.4em;
+    margin: 0;
+    font-size: 85%;
+    background-color: rgba(27,31,35,0.05);
+    border-radius: 3px;
+  }
+
+  .body-markdown pre {
+    padding: 16px;
+    overflow: auto;
+    font-size: 85%;
+    line-height: 1.45;
+    background-color: #f6f8fa;
+    border-radius: 6px;
+    margin-bottom: 16px;
+    position: relative;
+  }
+
+  .body-markdown pre code {
+    padding: 0;
+    margin: 0;
+    background-color: transparent;
+  }
+
+  .copy-button {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 3px;
+    padding: 3px 8px;
+    font-size: 12px;
+    cursor: pointer;
+    opacity: 0.7;
+  }
+
+  .copy-button:hover {
+    opacity: 1;
   }
 
   .interaction {
@@ -86,6 +193,7 @@
   .comments .comment-body {
     font-size: 14px;
     margin: 5px 0;
+    line-height: 1.5;
   }
   .comments .comment-footer {
     font-size: 12px;

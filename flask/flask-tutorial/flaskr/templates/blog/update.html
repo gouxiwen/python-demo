@@ -1,38 +1,75 @@
 {% extends 'base.html' %}
 
 {% block header %}
-  <h1>{% block title %}编辑 "{{ post['title'] }}"{% endblock %}</h1>
+<h1>{% block title %}编辑 "{{ post['title'] }}"{% endblock %}</h1>
 {% endblock %}
 
 {% block content %}
-  <form method="post">
-    <label for="title">标题</label>
-    <input name="title" id="title"
-      value="{{ request.form['title'] or post['title'] }}" required>
-    <label for="body">内容</label>
-    <textarea name="body" id="body">{{ request.form['body'] or post['body'] }}</textarea>
-    <div class="update-button">
-      <input class="button" type="submit" value="保存">
-      <input class="button danger" type="button" value="删除" onclick="deletePost(`{{ post['id'] }}`)">
-    </div>
-  </form>
-  <!-- <form action="{{ url_for('blog.delete', id=post['id']) }}" method="post">
+<form method="post">
+  <label for="title">标题</label>
+  <input name="title" id="title" value="{{ request.form['title'] or post['title'] }}" required>
+  <label for="body">内容</label>
+  <textarea name="body" id="body">{{ request.form['body'] or post['body'] }}</textarea>
+  <select name="tags" id="tags" value="{{ request.form['tags'] or '' }}" multiple>
+    {% for tag in tags %}
+    <option value="{{ tag['id'] }}" {% if tag['id'] in post_tags %}selected{% endif %}>{{ tag['name'] }}</option>
+    {% endfor %}
+  </select>
+  <div class="update-button">
+    <input class="button " type="submit" value="保存">
+    <input class="button danger" type="button" value="删除" onclick="deletePost(`{{ post['id'] }}`)">
+  </div>
+</form>
+<!-- <form action="{{ url_for('blog.delete', id=post['id']) }}" method="post">
     <input class="danger" type="submit" value="删除" onclick="return confirm('确定要删除吗？');">
   </form> -->
-  <script>
-    function deletePost(id) {
-      if (confirm('确定要删除吗？')) {
-        fetch(`/${id}/delete`, { method: 'POST' }).then(() => {
-          window.location.href = '/'
-        })
-      }
+<script>
+  function deletePost(id) {
+    if (confirm('确定要删除吗？')) {
+      fetch(`/${id}/delete`, { method: 'POST' }).then(() => {
+        window.location.href = '/'
+      })
     }
-  </script>
-  <style>
-    .update-button {
-      display: flex;
-      justify-content: flex-end;
-      gap: 0.5rem;
-    }
-  </style>
+  }
+</script>
+<!-- <script>
+  // 初始化SimpleMDE编辑器
+  var simplemde = new SimpleMDE({
+    element: document.getElementById("body"),
+    placeholder: "开始写作...",
+    spellChecker: false,
+    autosave: {
+      enabled: true,
+      uniqueId: "createPost",
+      delay: 1000,
+    },
+    toolbar: [
+      "bold", "italic", "heading", "|",
+      "quote", "unordered-list", "ordered-list", "|",
+      "link", "image", "table", "preview", "side-by-side", "fullscreen", "|",
+      "guide"
+    ],
+    renderingConfig: {
+      singleLineBreaks: false,
+      codeSyntaxHighlighting: true,
+    },
+    insertTexts: [
+      ["**", "**"], // 选中文字变粗体
+      ["*", "*"], // 选中文字变斜体
+      ["`", "`"] // 选中文字变行内代码
+    ]
+  });
+
+  // 当表单提交时，将编辑器内容同步到textarea
+  document.querySelector("form").addEventListener("submit", function () {
+    simplemde.value(simplemde.value());
+  });
+</script> -->
+<style>
+  .update-button {
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.5rem;
+  }
+</style>
 {% endblock %}

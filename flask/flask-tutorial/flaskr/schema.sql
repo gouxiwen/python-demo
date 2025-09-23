@@ -1,8 +1,11 @@
 
+
 -- DROP TABLE IF EXISTS user;
 -- DROP TABLE IF EXISTS post;
 -- DROP TABLE IF EXISTS post_like;
-DROP TABLE IF EXISTS post_comment;
+-- DROP TABLE IF EXISTS post_comment;
+DROP TABLE IF EXISTS tag;
+DROP TABLE IF EXISTS post_tag;
 
 
 CREATE TABLE IF NOT EXISTS user (
@@ -42,4 +45,21 @@ CREATE TABLE IF NOT EXISTS post_comment (
   FOREIGN KEY (user_id) REFERENCES user (id),
   FOREIGN KEY (username) REFERENCES user (username),
   FOREIGN KEY (post_id) REFERENCES post (id)
+);
+
+-- 标签表
+
+CREATE TABLE IF NOT EXISTS tag (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  name TEXT UNIQUE NOT NULL
+);
+
+-- 文章标签关联表，实现多对多关系
+CREATE TABLE IF NOT EXISTS post_tag (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  post_id INTEGER NOT NULL,
+  tag_id INTEGER NOT NULL,
+  FOREIGN KEY (post_id) REFERENCES post (id),
+  FOREIGN KEY (tag_id) REFERENCES tag (id),
+  UNIQUE (post_id, tag_id) -- 一篇文章同一个标签只允许出现一次
 );

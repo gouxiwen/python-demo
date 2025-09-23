@@ -7,9 +7,53 @@
 {% block content %}
   <form method="post">
     <label for="title">标题</label>
-    <input name="title" id="title" value="{{ request.form['title'] }}" required>
+    <input name="title" id="title" required>
+
     <label for="body">内容</label>
     <textarea name="body" id="body">{{ request.form['body'] }}</textarea>
+
+    <label for="tags">标签</label>
+    <select name="tags" id="tags" multiple>
+      {% for tag in tags %}
+      <option value="{{ tag['id'] }}">{{ tag['name'] }}</option>
+      {% endfor %}
+    </select>
+
     <input class="button" type="submit" value="保存">
   </form>
+
+  <!-- <script>
+    // 初始化SimpleMDE编辑器
+    var simplemde = new SimpleMDE({
+      element: document.getElementById("body"),
+      placeholder: "开始写作...",
+      spellChecker: false,
+      autosave: {
+        enabled: true,
+        uniqueId: "createPost",
+        delay: 1000,
+      },
+      toolbar: [
+        "bold", "italic", "heading", "|",
+        "quote", "unordered-list", "ordered-list", "|",
+        "link", "image", "table", "preview", "side-by-side", "fullscreen", "|",
+        "guide"
+      ],
+      renderingConfig: {
+        singleLineBreaks: false,
+        codeSyntaxHighlighting: true,
+      },
+      insertTexts: [
+        ["**", "**"], // 选中文字变粗体
+        ["*", "*"], // 选中文字变斜体
+        ["`", "`"] // 选中文字变行内代码
+      ]
+    });
+
+    // 当表单提交时，将编辑器内容同步到textarea
+    document.querySelector("form").addEventListener("submit", function() {
+      simplemde.value(simplemde.value());
+    });
+  </script> -->
+
 {% endblock %}
