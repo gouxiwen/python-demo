@@ -32,7 +32,7 @@
     }
   }
 </script>
-<!-- <script>
+<script>
   // 初始化SimpleMDE编辑器
   var simplemde = new SimpleMDE({
     element: document.getElementById("body"),
@@ -60,11 +60,14 @@
     ]
   });
 
+  // 设置编辑器内容为当前文章内容
+  simplemde.value(document.getElementById("body").value);
+
   // 当表单提交时，将编辑器内容同步到textarea
   document.querySelector("form").addEventListener("submit", function () {
     simplemde.value(simplemde.value());
   });
-</script> -->
+</script>
 <style>
   .update-button {
     display: flex;

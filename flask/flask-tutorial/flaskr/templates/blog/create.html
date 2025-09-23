@@ -10,7 +10,7 @@
     <input name="title" id="title" required>
 
     <label for="body">内容</label>
-    <textarea name="body" id="body">{{ request.form['body'] }}</textarea>
+    <textarea name="body" id="body"></textarea>
 
     <label for="tags">标签</label>
     <select name="tags" id="tags" multiple>
@@ -22,7 +22,7 @@
     <input class="button" type="submit" value="保存">
   </form>
 
-  <!-- <script>
+  <script>
     // 初始化SimpleMDE编辑器
     var simplemde = new SimpleMDE({
       element: document.getElementById("body"),
@@ -49,11 +49,14 @@
         ["`", "`"] // 选中文字变行内代码
       ]
     });
+    
+    // 清空编辑器内容，确保每次打开页面时都是空白的
+    simplemde.value("");
 
     // 当表单提交时，将编辑器内容同步到textarea
     document.querySelector("form").addEventListener("submit", function() {
-      simplemde.value(simplemde.value());
+     simplemde.value(simplemde.value());
     });
-  </script> -->
+  </script>
 
 {% endblock %}

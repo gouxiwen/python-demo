@@ -35,7 +35,7 @@
     <a class="action" href="{{ url_for('blog.update', id=post['id']) }}">编辑</a>
     {% endif %}
   </header>
-  <p class="ellipsis">{{ post['body'] }}</p>
+  <div class="post-content ellipsis" data-content="{{ post['body']|e }}"></div>
 </article>
 {% if not loop.last %}
 <br>
@@ -129,4 +129,28 @@
   }
 
 </style>
+
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+<script>
+  // 使用marked.js解析Markdown内容并只显示第一行
+  document.addEventListener('DOMContentLoaded', function() {
+    const postContents = document.querySelectorAll('.post-content');
+    postContents.forEach(function(content) {
+      const markdownText = content.getAttribute('data-content');
+      if (markdownText) {
+        // 只取第一行内容
+        const firstLine = markdownText.split('\n')[0];
+        
+        // 配置marked选项
+        marked.setOptions({
+          breaks: true,
+          gfm: true
+        });
+        // 渲染Markdown为HTML
+        const htmlContent = marked.parse(firstLine);
+        content.innerHTML = htmlContent;
+      }
+    });
+  });
+</script>
 {% endblock %}
